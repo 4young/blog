@@ -11,11 +11,11 @@ name: ''
 description: "The story begins here."
 
 # Author's info
-author: 'Casper McFadden'
+author: '4young'
 # edit 'categories' in the front matter of every post to match this username
-nickname: casper
+# nickname: casper
 bio: 'A paranormal expert and his daughter bunk in an abandoned house populated by 3 mischievous ghosts and one friendly one.'
-location: 'Maine, USA'
+# location: 'Maine, USA'
 url: 'http://4young.github.io/blog/'
 image: 'assets/images/casper.png'
 
