@@ -7,4 +7,23 @@ logo: 'assets/images/ghost.png'
 current: about
 ---
 
-nothing is true,everything is permitted
+`nothing is true,everything is permitted`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
