@@ -1,10 +1,10 @@
 ---
 layout: page
-title: About
+title: Only the easy day, was Yesterday.
 class: 'post'
 navigation: True
 logo: 'assets/images/ghost.png'
 current: about
 ---
 
-Only the easy day, was Yesterday.
+
