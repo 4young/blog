@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Only the easy day, was Yesterday.
+title:  nothing is true,everything is permitted
 class: 'post'
 navigation: True
 logo: 'assets/images/ghost.png'
