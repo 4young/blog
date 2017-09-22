@@ -60,7 +60,7 @@ username: 4young
 repo: blog
 branch: master
 relative_source: ../blog/
-destination: ../jasper-pages/
+destination: ../blog-pages/
 production_url:  https://4young.github.io/blog/
 source_url:      https://github.com/4young/blog/
 
