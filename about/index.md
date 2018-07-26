@@ -8,7 +8,7 @@ current: about
 ---
 
 
-**nothing is true,everything is permitted**
+- nothing is true,everything is permitted
 
 
 
