@@ -1,5 +1,6 @@
 ---
 layout: page
+cover: 'assets/images/start2.jpg'
 title:  
 class: 'post'
 navigation: True
