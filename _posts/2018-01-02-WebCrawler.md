@@ -25,4 +25,26 @@ Usage:
 dirhunt http://website.com/
 ```
 
+[**Arachnado**](https://github.com/TeamHG-Memex/arachnado)
+
+Arachnado is a tool to crawl a specific website. It provides a Tornado-based HTTP API and a web UI for a Scrapy-based crawler.
+
+Install:
+
+```
+pip install arachnado
+```
+
+Usage:
+
+
+To start Arachnado execute arachnado command:
+
+```
+arachnado
+```
+
+and then visit http://0.0.0.0:8888 (or whatever URL is configured).
+
+
 
