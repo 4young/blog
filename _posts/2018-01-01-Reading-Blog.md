@@ -9,7 +9,7 @@ navigation: True
 logo: 'assets/images/ghost.png'
 ---
 
-[### az0ne](http://az0ne.lofter.com/)
+[**az0ne**](http://az0ne.lofter.com/)
 
 - [AZSpider分布式爬虫](https://github.com/az0ne/AZSpider)
 - [Github_Nuggests](https://github.com/az0ne/Github_Nuggests):自动爬取Github上文件敏感信息泄露，抓取邮箱密码并自动登录邮箱验证，支持126，qq，sina，163邮箱 
