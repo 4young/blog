@@ -19,3 +19,12 @@ logo: 'assets/images/ghost.png'
 - [simple_zoomeye](https://github.com/az0ne/simple_zoomeye):简易的Zoomeye
 
 https://diablohorn.com/
+
+Temporary Email：
+https://mytemp.email/
+
+US Area Code Listings by State：
+https://www.allareacodes.com/area_code_listings_by_state.htm
+
+Phone number:
+https://www.textnow.com/
