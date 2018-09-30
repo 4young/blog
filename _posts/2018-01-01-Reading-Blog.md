@@ -36,6 +36,15 @@ https://www.textnow.com/
 [安全运维之如何找到隐匿于last和w命令中的ssh登录痕迹](http://www.freebuf.com/articles/system/182860.html)
 
 ---
+
+r0ak
+r0ak是一款Windows平台下的命令行工具，它可以帮助我们在命令行界面下轻松读取、写入和执行内核模式代码，而且除了管理员权限之外，不需要其他额外的东西。
+
+r0akv1.0.0 — Ring 0 Army Knife
+http://www.github.com/ionescu007/r0ak
+http://www.windows-internals.com
+
+---
 Vulnerability search engine：
 https://vulmon.com/
 
