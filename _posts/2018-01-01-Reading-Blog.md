@@ -40,9 +40,7 @@ https://www.textnow.com/
 r0ak
 r0ak是一款Windows平台下的命令行工具，它可以帮助我们在命令行界面下轻松读取、写入和执行内核模式代码，而且除了管理员权限之外，不需要其他额外的东西。
 
-r0akv1.0.0 — Ring 0 Army Knife
-http://www.github.com/ionescu007/r0ak
-http://www.windows-internals.com
+https://github.com/harryh4cker/r0ak
 
 ---
 Vulnerability search engine：
