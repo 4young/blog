@@ -58,3 +58,8 @@ https://vulmon.com/
 The goal of the LOLBAS project is to document every binary, script, and library that can be used for Living Off The Land techniques.
 
 https://lolbas-project.github.io/
+
+GTFOBins is a curated list of Unix binaries that can be exploited by an attacker to bypass local security restrictions.
+
+https://gtfobins.github.io/
+
