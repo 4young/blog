@@ -49,6 +49,12 @@ HTTP协议调试工具汇总
 http://www.freebuf.com/sectool/184366.html
 
 ---
+
 Vulnerability search engine：
 https://vulmon.com/
 
+---
+
+The goal of the LOLBAS project is to document every binary, script, and library that can be used for Living Off The Land techniques.
+
+https://lolbas-project.github.io/
