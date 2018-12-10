@@ -63,3 +63,9 @@ GTFOBins is a curated list of Unix binaries that can be exploited by an attacker
 
 https://gtfobins.github.io/
 
+
+---
+
+https://null-byte.wonderhowto.com/how-to/white-hats-guide-choosing-virtual-private-server-0183135/
+
+https://www.hak5.org/shows/hak5
