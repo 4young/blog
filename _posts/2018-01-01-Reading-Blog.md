@@ -83,3 +83,9 @@ https://www.anquanke.com/post/id/86241
 Exploring the Depths of Cmd.exe Obfuscation and Detection Techniques
 
 https://www.fireeye.com/content/dam/fireeye-www/blog/pdfs/dosfuscation-report.pdf
+
+---
+
+秒D盾安全狗一句话木马
+
+https://mp.weixin.qq.com/s/d2mvfHjKFdQ_Z1aN9cKJbA
