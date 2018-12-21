@@ -79,3 +79,7 @@ https://www.anquanke.com/post/id/155943
 手把手教你使用PowerShell内置的端口扫描器
 
 https://www.anquanke.com/post/id/86241
+
+Exploring the Depths of Cmd.exe Obfuscation and Detection Techniques
+
+https://www.fireeye.com/content/dam/fireeye-www/blog/pdfs/dosfuscation-report.pdf
