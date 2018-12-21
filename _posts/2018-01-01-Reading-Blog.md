@@ -84,6 +84,10 @@ Exploring the Depths of Cmd.exe Obfuscation and Detection Techniques
 
 https://www.fireeye.com/content/dam/fireeye-www/blog/pdfs/dosfuscation-report.pdf
 
+利用通配符进行Linux本地提权
+
+https://www.freebuf.com/articles/system/176255.html
+
 ---
 
 秒D盾安全狗一句话木马
