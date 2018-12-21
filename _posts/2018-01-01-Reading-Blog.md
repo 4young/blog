@@ -75,3 +75,7 @@ https://www.hak5.org/shows/hak5
 我所了解的渗透测试——Linux后门类型
 
 https://www.anquanke.com/post/id/155943
+
+手把手教你使用PowerShell内置的端口扫描器
+
+https://www.anquanke.com/post/id/86241
