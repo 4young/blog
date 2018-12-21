@@ -69,3 +69,9 @@ https://gtfobins.github.io/
 https://null-byte.wonderhowto.com/how-to/white-hats-guide-choosing-virtual-private-server-0183135/
 
 https://www.hak5.org/shows/hak5
+
+---
+
+我所了解的渗透测试——Linux后门类型
+
+https://www.anquanke.com/post/id/155943
