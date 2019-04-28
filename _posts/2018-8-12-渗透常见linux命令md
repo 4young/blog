@@ -1,0 +1,10 @@
+---
+layout: post
+cover: 'assets/images/start.jpg'
+title: 渗透常见linux命令
+date:   2018-08-12
+tags: web
+subclass: 'post'
+navigation: True
+logo: 'assets/images/ghost.png'
+---
