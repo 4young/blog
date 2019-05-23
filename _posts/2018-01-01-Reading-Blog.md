@@ -93,3 +93,9 @@ https://www.freebuf.com/articles/system/176255.html
 秒D盾安全狗一句话木马
 
 https://mp.weixin.qq.com/s/d2mvfHjKFdQ_Z1aN9cKJbA
+
+一文看懂Python沙箱逃逸
+
+https://www.freebuf.com/articles/system/203208.html
+
+
