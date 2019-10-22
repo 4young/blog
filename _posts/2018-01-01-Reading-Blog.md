@@ -98,4 +98,10 @@ https://mp.weixin.qq.com/s/d2mvfHjKFdQ_Z1aN9cKJbA
 
 https://www.freebuf.com/articles/system/203208.html
 
+---
+
+Nmap service detection probe list
+
+https://raw.githubusercontent.com/nmap/nmap/master/nmap-service-probes
+
 
