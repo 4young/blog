@@ -104,4 +104,9 @@ Nmap service detection probe list
 
 https://raw.githubusercontent.com/nmap/nmap/master/nmap-service-probes
 
+---
+
+INTERNET MESSAGE ACCESS PROTOCOL - VERSION 4rev1
+
+https://tools.ietf.org/html/rfc2060#section-3.4
 
