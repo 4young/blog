@@ -110,3 +110,16 @@ INTERNET MESSAGE ACCESS PROTOCOL - VERSION 4rev1
 
 https://tools.ietf.org/html/rfc2060#section-3.4
 
+---
+
+CVE-2015-4027，AWVS10 命令执行漏洞
+
+https://www.waitalone.cn/awvs-poc.html
+
+Pwn the n00bs - Acunetix 0day，awvs8 命令执行漏洞
+
+http://an7isec.blogspot.com/2014/04/pown-noobs-acunetix-0day.html
+
+---
+
+
