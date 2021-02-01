@@ -123,3 +123,7 @@ http://an7isec.blogspot.com/2014/04/pown-noobs-acunetix-0day.html
 ---
 
 https://osandamalith.com/
+
+---
+
+https://swarm.ptsecurity.com/
