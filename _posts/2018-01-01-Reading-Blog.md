@@ -127,3 +127,8 @@ https://osandamalith.com/
 ---
 
 https://swarm.ptsecurity.com/
+
+---
+
+https://adepts.of0x.cc/
+
