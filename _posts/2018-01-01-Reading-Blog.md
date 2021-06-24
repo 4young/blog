@@ -132,3 +132,6 @@ https://swarm.ptsecurity.com/
 
 https://adepts.of0x.cc/
 
+---
+
+https://zer1t0.gitlab.io/posts/attacking_ad/
